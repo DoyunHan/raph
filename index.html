@@ -102,6 +102,14 @@
   <footer>문의: knowledge.practice0809@gmail.com<br>이 서비스는 심리치료나 의료·법률·투자 자문이 아니며 특정 결과를 보장하지 않습니다. 고객 사례는 별도 동의 없이 공개하지 않습니다.</footer>
 </main>
 <script>
+const allowedSources = new Set(["threads", "instagram", "facebook", "naver", "direct"]);
+const sourceParam = new URLSearchParams(location.search).get("src") || "direct";
+const source = allowedSources.has(sourceParam) ? sourceParam : "direct";
+document.querySelectorAll('a[href^="mailto:knowledge.practice0809@gmail.com"]').forEach(link => {
+  const subject = `체화 상담 신청 [${source}]`;
+  link.href = `mailto:knowledge.practice0809@gmail.com?subject=${encodeURIComponent(subject)}`;
+});
+
 const items = [
   "배운 내용을 적용할 구체적인 장면을 말할 수 있다.",
   "읽은 뒤 24시간 안에 작은 행동으로 옮긴다.",
